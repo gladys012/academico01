@@ -1,0 +1,98 @@
+
+
+------------------------------------
+------------------USUARIOS-----------
+
+CREATE TABLE public.identificador
+(
+    id serial PRIMARY KEY,
+    paterno text COLLATE pg_catalog."default" NOT NULL,
+    materno text COLLATE pg_catalog."default",
+    nombre text COLLATE pg_catalog."default" NOT NULL,
+    ci text COLLATE pg_catalog."default" NOT NULL,
+    direccion text COLLATE pg_catalog."default",
+    departamento text COLLATE pg_catalog."default",
+    estado boolean NOT NULL DEFAULT true,
+    usr_id integer NOT NULL,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone
+);
+
+
+CREATE TABLE public.roles
+(
+    id serial PRIMARY KEY,
+    nombre character varying(40) COLLATE pg_catalog."default" NOT NULL,
+    descripcion character varying(100) COLLATE pg_catalog."default",
+    estado boolean NOT NULL DEFAULT true,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone,
+    CONSTRAINT roles_nombre_unique UNIQUE (nombre)
+);
+
+CREATE TABLE public.users
+(
+    id serial PRIMARY KEY,
+    usuario character varying(191)  NOT NULL,
+    password character varying(191)  NOT NULL,
+    estado boolean NOT NULL DEFAULT true,
+    idrol integer NOT NULL,
+    remember_token character varying(100) ,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone,
+    usr_id integer,
+    CONSTRAINT users_usuario_unique UNIQUE (usuario),
+    CONSTRAINT users_id_foreign FOREIGN KEY (id)
+        REFERENCES public.identificador (id) MATCH SIMPLE
+);
+
+
+CREATE TABLE notas_materia
+(
+    id serial PRIMARY KEY,
+    ididentificador integer NOT NULL,
+    materia text,
+    nota integer,
+    usr_id integer NOT NULL,
+    estado boolean NOT NULL DEFAULT true,
+    created_at timestamp(0) without time zone,
+    updated_at timestamp(0) without time zone,
+    CONSTRAINT notas_materia_ididentificador_foreign FOREIGN KEY (ididentificador)
+    REFERENCES public.identificador (id) MATCH SIMPLE     
+);
+
+
+INSERT INTO public.identificador(paterno, materno, nombre, ci, departamento, estado, usr_id) VALUES ('laime', 'mullisaca', 'gladys celia', '4872606', 'la paz',  true, 1);
+INSERT INTO public.identificador(paterno, materno, nombre, ci, departamento, estado, usr_id) VALUES ('perez', 'perez', 'juan', '123456', 'la paz',  true, 1);
+INSERT INTO public.identificador(paterno, materno, nombre, ci, departamento, estado, usr_id) VALUES ('rios', 'rodruiguez', 'luis', '456789', 'oruro',  true, 1);
+INSERT INTO public.identificador(paterno, materno, nombre, ci, departamento, estado, usr_id) VALUES ('sanchez', 'tejada', 'carlos daniel', '7894561', 'santa cruz',  true, 1);
+INSERT INTO public.identificador(paterno, materno, nombre, ci, departamento, estado, usr_id) VALUES ('lima', 'iriarte', 'daniela', '4561230', 'cochabamba',  true, 1);
+INSERT INTO public.identificador(paterno, materno, nombre, ci, departamento, estado, usr_id) VALUES ('ruiz', 'gallardo', 'jhonny jose', '2145677', 'sucre',  true, 1);
+INSERT INTO public.identificador(paterno, materno, nombre, ci, departamento, estado, usr_id) VALUES ('blanco', 'soria', 'patricia', '3216541', 'tarija',  true, 1);
+INSERT INTO public.identificador(paterno, materno, nombre, ci, departamento, estado, usr_id) VALUES ('ortiz', 'murillo', 'rodrigo', '9876401', 'beni',  true, 1);
+INSERT INTO public.identificador(paterno, materno, nombre, ci, departamento, estado, usr_id) VALUES ('cespedes', 'rojas', 'ramiro', '9456123', 'pando',  true, 1);
+INSERT INTO public.identificador(paterno, materno, nombre, ci, departamento, estado, usr_id) VALUES ('candia', 'jimenez', 'jose luis', '6543200', 'oruro',  true, 1);
+INSERT INTO public.identificador(paterno, materno, nombre, ci, departamento, estado, usr_id) VALUES ('bustamante', 'montes', 'jaime', '2346578', 'pando',  true, 1);
+INSERT INTO public.identificador(paterno, materno, nombre, ci, departamento, estado, usr_id) VALUES ('quiroga', 'machaca', 'angel', '8012345', 'la paz',  true, 1);
+
+INSERT INTO public.roles(nombre, descripcion, estado) VALUES ('administrador', 'Administra el sistema', true);
+
+
+INSERT INTO public.notas_materia(ididentificador, materia, nota, usr_id, estado) VALUES (1, 'inf-324', '82', 1, true);
+INSERT INTO public.notas_materia(ididentificador, materia, nota, usr_id, estado) VALUES (2, 'inf-324',  '60', 1, true);
+INSERT INTO public.notas_materia(ididentificador, materia, nota, usr_id, estado) VALUES (3, 'inf-324',  '47', 1, true);
+INSERT INTO public.notas_materia(ididentificador, materia, nota, usr_id, estado) VALUES (4, 'inf-324', '75', 1, true);
+INSERT INTO public.notas_materia(ididentificador, materia, nota, usr_id, estado) VALUES (5, 'inf-324',  '80', 1, true);
+INSERT INTO public.notas_materia(ididentificador, materia, nota, usr_id, estado) VALUES (6, 'inf-324', '51', 1, true);
+INSERT INTO public.notas_materia(ididentificador, materia, nota, usr_id, estado) VALUES (7, 'inf-324',  '62', 1, true);
+INSERT INTO public.notas_materia(ididentificador, materia, nota, usr_id, estado) VALUES (8, 'inf-324',  '64', 1, true);
+INSERT INTO public.notas_materia(ididentificador, materia, nota, usr_id, estado) VALUES (9, 'inf-324',  '45', 1, true);
+INSERT INTO public.notas_materia(ididentificador, materia, nota, usr_id, estado) VALUES (10, 'inf-324', '32', 1, true);
+INSERT INTO public.notas_materia(ididentificador, materia, nota, usr_id, estado) VALUES (11, 'inf-324',  '29', 1, true);
+INSERT INTO public.notas_materia(ididentificador, materia, nota, usr_id, estado) VALUES (12, 'inf-324',  '51', 1, true);
+
+
+
+https://txikiboo.wordpress.com/2014/01/16/archivos-arff-weka/
+3.   arbol de desicion excel paso a paso
+	j48
